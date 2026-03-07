@@ -500,14 +500,14 @@ typedef struct _{p}EXPORT {{
         )
 
         init_comment = {
-            ResolutionMethod.Static:          "/* static table -- no init required if using compile-time SSNs */",
-            ResolutionMethod.FreshyCalls:     "/* FreshyCalls -- sorts ntdll Nt* exports by VA */",
-            ResolutionMethod.HellsGate:       "/* Hell's Gate  -- reads SSN from ntdll stub opcode */",
-            ResolutionMethod.HalosGate:       "/* Halo's Gate  -- Hell's Gate + neighbor scan for hooks */",
-            ResolutionMethod.TartarusGate:    "/* Tartarus' Gate -- handles near/far JMP hooks */",
-            ResolutionMethod.SyscallsFromDisk:"/* SyscallsFromDisk -- loads clean ntdll from KnownDlls */",
-            ResolutionMethod.RecycledGate:    "/* RecycledGate -- FreshyCalls + opcode validation */",
-            ResolutionMethod.HWBreakpoint:    "/* HW Breakpoint -- DR registers + VEH to extract SSN */",
+            ResolutionMethod.Static:          "static table -- no init required if using compile-time SSNs",
+            ResolutionMethod.FreshyCalls:     "FreshyCalls -- sorts ntdll Nt* exports by VA",
+            ResolutionMethod.HellsGate:       "Hell's Gate  -- reads SSN from ntdll stub opcode",
+            ResolutionMethod.HalosGate:       "Halo's Gate  -- Hell's Gate + neighbor scan for hooks",
+            ResolutionMethod.TartarusGate:    "Tartarus' Gate -- handles near/far JMP hooks",
+            ResolutionMethod.SyscallsFromDisk:"SyscallsFromDisk -- loads clean ntdll from KnownDlls",
+            ResolutionMethod.RecycledGate:    "RecycledGate -- FreshyCalls + opcode validation",
+            ResolutionMethod.HWBreakpoint:    "HW Breakpoint -- DR registers + VEH to extract SSN",
         }[self.cfg.resolve]
 
         egg_init = ""

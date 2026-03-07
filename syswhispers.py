@@ -256,9 +256,9 @@ Examples:
     )
     out.add_argument(
         "-o", "--out-file",
-        default="SW4Syscalls",
+        default=None,
         metavar="OUTFILE",
-        help="Output filename base (default: SW4Syscalls)",
+        help="Output filename base (default: <PREFIX>Syscalls)",
     )
     out.add_argument(
         "--out-dir",
@@ -331,14 +331,16 @@ def main() -> None:
         print("  [!] ntdll unhooking enabled -- for authorized use only.\n")
 
     # ---- Build config ----------------------------------------------------
+    prefix_clean = args.prefix.rstrip("_")
+    out_file = args.out_file if args.out_file is not None else f"{prefix_clean}Syscalls"
     cfg = GeneratorConfig(
         functions       = functions,
         arch            = Architecture(args.arch),
         compiler        = Compiler(args.compiler),
         method          = InvocationMethod(args.method),
         resolve         = ResolutionMethod(args.resolve),
-        prefix          = args.prefix.rstrip("_") + "_",
-        out_file        = args.out_file,
+        prefix          = prefix_clean + "_",
+        out_file        = out_file,
         out_dir         = args.out_dir,
         obfuscate       = args.obfuscate,
         encrypt_ssn     = args.encrypt_ssn,
@@ -385,7 +387,7 @@ def main() -> None:
     # ---- Usage hint ------------------------------------------------------
     print()
     print("  [*] Integration guide:")
-    out_base = args.out_file
+    out_base = cfg.out_file
     if cfg.compiler == Compiler.MSVC:
         print(f"      Add to MSVC project:")
         print(f"        {out_base}_Types.h  {out_base}.h  {out_base}.c  {out_base}.asm")
